@@ -1,0 +1,41 @@
+name: "cargo-fmt-bot"
+author: "Marco Ieni"
+description: "GitHub action to automatically format your Rust code"
+inputs:
+  commit_message:
+    description: "Commit message to use when committing the changes. If not provided, the default 'chore: format' is used."
+    default: "chore: format"
+    required: false
+branding:
+  icon: "zap"
+  color: "yellow"
+runs:
+  using: "composite"
+  steps:
+    - id: commit-author
+      name: Determine Git user info from GitHub token
+      shell: bash
+      run: |
+        # The environment variable GITHUB_TOKEN is read by the `gh` cli
+        VIEWER_JSON=$(gh api graphql -f query='query { viewer { name login databaseId }}' --jq '.data.viewer')
+        VIEWER_NAME=$(jq --raw-output '.name | values' <<< "${VIEWER_JSON}")
+        VIEWER_LOGIN=$(jq --raw-output '.login' <<< "${VIEWER_JSON}")
+        VIEWER_DATABASE_ID=$(jq --raw-output '.databaseId' <<< "${VIEWER_JSON}")
+
+        USER_NAME="${VIEWER_NAME:-${VIEWER_LOGIN}}"
+        USER_EMAIL="${VIEWER_DATABASE_ID}+${VIEWER_LOGIN}@users.noreply.github.com"
+
+        echo "name=${USER_NAME}" >> "${GITHUB_OUTPUT}"
+        echo "email=${USER_EMAIL}" >> "${GITHUB_OUTPUT}"
+    - name: Run cargo fmt bot
+      shell: bash
+      run: |
+        cargo fmt --all
+
+        # If repository has uncommitted changes, commit them
+        if [[ -n $(git status -s) ]]
+        then
+            git add .
+            git commit -m "${{ inputs.commit_message }}"
+            git push
+        fi
