@@ -50,6 +50,8 @@ jobs:
         uses: dtolnay/rust-toolchain@stable
       - name: Configure git user from GitHub token
         uses: MarcoIeni/git-config@v0.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Fix formatting and clippy
         shell: bash
         run: |
@@ -63,8 +65,6 @@ jobs:
               git commit -m "cargo fmt and clippy fixes"
               git push
           fi
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 
 ## Default GitHub token
