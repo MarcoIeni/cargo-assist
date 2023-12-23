@@ -13,7 +13,7 @@ runs:
   using: "composite"
   steps:
     - id: commit-author
-      name: Determine Git user info from GitHub token
+      name: Configure git user from GitHub token
       shell: bash
       run: |
         # The environment variable GITHUB_TOKEN is read by the `gh` cli
@@ -23,10 +23,10 @@ runs:
         VIEWER_DATABASE_ID=$(jq --raw-output '.databaseId' <<< "${VIEWER_JSON}")
 
         USER_NAME="${VIEWER_NAME:-${VIEWER_LOGIN}}"
-        USER_EMAIL="${VIEWER_DATABASE_ID}+${VIEWER_LOGIN}@users.noreply.github.com"
+        git config --global user.name ${USER_NAME}
 
-        echo "name=${USER_NAME}" >> "${GITHUB_OUTPUT}"
-        echo "email=${USER_EMAIL}" >> "${GITHUB_OUTPUT}"
+        USER_EMAIL="${VIEWER_DATABASE_ID}+${VIEWER_LOGIN}@users.noreply.github.com"
+        git config --global user.email ${USER_EMAIL}
     - name: Run cargo fmt bot
       shell: bash
       run: |
