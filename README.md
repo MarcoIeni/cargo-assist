@@ -3,6 +3,10 @@
 Remember the old days when `cargo fmt --check` failed in CI and you had to run `cargo fmt && git commit -m "format" && git push` manually?
 Well, those days are over, because the *cargo-fmt-bot* GitHub action does it for you!
 
+![PR screenshot](assets/screenshot.png)
+
+## Usage
+
 Add the cargo-fmt-bot workflow file under the `.github/workflows` directory. For example `.github/workflows/cargo-fmt-bot.yml`:
 
 ```yaml
