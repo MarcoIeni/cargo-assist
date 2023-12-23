@@ -70,7 +70,7 @@ Create the PAT, choosing one of the two types:
   instructions, giving the PAT the following permissions:
   - Select the repositories where you want to use the PAT, to give *cargo-fmt-bot* write access:
     ![pat repository access](assets/repository-access.png)
-  - Assign "Contents" read and write permissions:
+  - Under "Repository permissions", assign "Contents" read and write permissions:
     ![pat fine permissions](assets/pat-overview.png)
 - [Classic](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token#personal-access-tokens-classic):
   less secure because you can't scope it to a single repository.
@@ -80,7 +80,7 @@ Create the PAT, choosing one of the two types:
 
 Once you generated your token, save it in the
 [secrets](https://docs.github.com/en/actions/security-guides/encrypted-secrets),
-and pass it to both the `actions/checkout` and `release-plz` actions:
+and pass it to both the `actions/checkout` and *cargo-fmt-bot* steps:
 
 ```yaml
 jobs:
@@ -130,8 +130,8 @@ Here's how to use a GitHub App to generate a GitHub token:
 
    ```yaml
    steps:
-     # Generating a GitHub token, so that PRs and tags created by
-     # the release-plz-action can trigger actions workflows.
+     # Generating a GitHub token, so that commits created by
+     # the cargo-fmt-bot can trigger actions workflows.
      - name: Generate GitHub token
        uses: actions/create-github-app-token@v1
        id: generate-token
