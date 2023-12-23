@@ -36,7 +36,7 @@ GitHub Actions using the default
 cannot trigger other workflow runs.
 
 Therefore, your `on: pull_request` or `on: push` workflows won't run on
-*cargo-fmt-bot* commits if you use the default GitHub token (`${{ secrets.GITHUB_TOKEN }}`).
+*cargo-fmt-bot* commits if you don't specify a token in the `actions/checkout` step.
 
 You can learn more in the GitHub
 [docs](https://docs.github.com/en/actions/using-workflows/triggering-a-workflow#triggering-a-workflow-from-a-workflow).
@@ -97,7 +97,7 @@ jobs:
       - name: Run Cargo fmt bot
         uses: MarcoIeni/cargo-fmt-bot@v0.1
         env:
-          GITHUB_TOKEN: ${{ secrets.CARGO_FMT_BOT_TOKEN }} # <-- PAT secret name
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # <-- to be the author of the commit, set the PAT secret name here, too
 ```
 
 ### Use a GitHub App
