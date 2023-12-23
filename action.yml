@@ -12,21 +12,8 @@ branding:
 runs:
   using: "composite"
   steps:
-    - id: commit-author
-      name: Configure git user from GitHub token
-      shell: bash
-      run: |
-        # The environment variable GITHUB_TOKEN is read by the `gh` cli
-        VIEWER_JSON=$(gh api graphql -f query='query { viewer { name login databaseId }}' --jq '.data.viewer')
-        VIEWER_NAME=$(jq --raw-output '.name | values' <<< "${VIEWER_JSON}")
-        VIEWER_LOGIN=$(jq --raw-output '.login' <<< "${VIEWER_JSON}")
-        VIEWER_DATABASE_ID=$(jq --raw-output '.databaseId' <<< "${VIEWER_JSON}")
-
-        USER_NAME="${VIEWER_NAME:-${VIEWER_LOGIN}}"
-        git config --global user.name ${USER_NAME}
-
-        USER_EMAIL="${VIEWER_DATABASE_ID}+${VIEWER_LOGIN}@users.noreply.github.com"
-        git config --global user.email ${USER_EMAIL}
+    - name: Configure git user from GitHub token
+      uses: MarcoIeni/git-config@v0.1
     - name: Run cargo fmt bot
       shell: bash
       run: |
