@@ -48,6 +48,8 @@ jobs:
         uses: actions/checkout@v4
       - name: Install Rust toolchain
         uses: dtolnay/rust-toolchain@stable
+      - name: Configure git user from GitHub token
+        uses: MarcoIeni/git-config@v0.1
       - name: Fix formatting and clippy
         shell: bash
         run: |
