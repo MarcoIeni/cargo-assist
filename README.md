@@ -38,40 +38,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 
-## Automating similar tasks
-
-To automate similar tasks, such as `cargo clippy --fix`, you can replace this
-action with a custom script. For example:
-
-```yaml
-jobs:
-  cargo-assist:
-    name: Cargo fmt bot
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-      - name: Install Rust toolchain
-        uses: dtolnay/rust-toolchain@stable
-      - name: Configure git user from GitHub token
-        uses: MarcoIeni/git-config@v0.1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Fix formatting and clippy
-        shell: bash
-        run: |
-          cargo clippy --fix
-          cargo fmt --all
-
-          # If repository has uncommitted changes, commit them
-          if [[ -n $(git status -s) ]]
-          then
-              git add .
-              git commit -m "cargo fmt and clippy fixes"
-              git push
-          fi
-```
-
 ## Default GitHub token
 
 GitHub Actions using the default
