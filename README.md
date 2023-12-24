@@ -15,7 +15,7 @@ Well, you don't have to anymore! The *cargo-assist* GitHub action formats your c
 Add the *cargo-assist* workflow file under the `.github/workflows` directory. For example `.github/workflows/cargo-assist.yml`:
 
 ```yaml
-name: Cargo fmt bot
+name: Cargo assist
 
 permissions:
   contents: write
@@ -25,14 +25,14 @@ on:
 
 jobs:
   cargo-assist:
-    name: Cargo fmt bot
+    name: Cargo assist
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
       - name: Install Rust toolchain
         uses: dtolnay/rust-toolchain@stable
-      - name: Run Cargo fmt bot
+      - name: Run Cargo assist
         uses: MarcoIeni/cargo-assist@v0.1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -94,7 +94,7 @@ and pass it to both the `actions/checkout` and *cargo-assist* steps:
 ```yaml
 jobs:
   cargo-assist:
-    name: Cargo fmt bot
+    name: Cargo assist
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -153,7 +153,7 @@ Here's how to use a GitHub App to generate a GitHub token:
          token: ${{ steps.generate-token.outputs.token }}
      - name: Install Rust toolchain
        uses: dtolnay/rust-toolchain@stable
-     - name: Run Cargo fmt bot
+     - name: Run Cargo assist
        uses: MarcoIeni/cargo-assist@v0.1
        env:
          GITHUB_TOKEN: ${{ steps.generate-token.outputs.token }}
