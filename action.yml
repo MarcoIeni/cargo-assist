@@ -14,9 +14,10 @@ runs:
   steps:
     - name: Configure git user from GitHub token
       uses: MarcoIeni/git-config@v0.1
-    - name: Run cargo fmt bot
+    - name: Run cargo-assist
       shell: bash
       run: |
+        cargo clippy --all-targets --all-features --workspace --fix
         cargo fmt --all
 
         # If repository has uncommitted changes, commit them
