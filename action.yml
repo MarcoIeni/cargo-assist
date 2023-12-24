@@ -2,6 +2,14 @@ name: "cargo-assist"
 author: "Marco Ieni"
 description: "GitHub action to automatically format your Rust code"
 inputs:
+  fmt:
+    description: "Whether to run `cargo fmt` or not. Possible values: `true`, `false`. (Default: `true`)."
+    default: true
+    required: false
+  clippy:
+    description: "Whether to run `cargo clippy` or not. Possible values: `true`, `false`. (Default: `true`)."
+    default: true
+    required: false
   commit_message:
     description: "Commit message to use when committing the changes. If not provided, the default 'chore: format, fix lints' is used."
     default: "chore: format, fix lints"
@@ -17,7 +25,11 @@ runs:
     - name: Run cargo-assist
       shell: bash
       run: |
-        cargo clippy --all-targets --all-features --workspace --fix
+        if [[ "${{ inputs.clippy }}" == true ]]
+        then
+            cargo clippy --all-targets --all-features --workspace --fix
+        fi
+
         # If repository has uncommitted changes, it means that clippy fixed some lints
         if [[ -n $(git status -s) ]]
         then
@@ -27,15 +39,29 @@ runs:
             CLIPPY_FIXED=false
         fi
 
-        cargo fmt --all
+        if [[ "${{ inputs.fmt }}" == true ]]
+        then
+            echo "running cargo fmt"
+            cargo fmt --all
+        fi
 
         if [[ "${{ inputs.commit_message }}" == "chore: format, fix lints" ]]
         then
             echo "user didn't specify a custom commit message"
-            COMMIT_MSG="chore: format"
+            COMMIT_MSG="chore: "
+
+            if [[ "${{ inputs.fmt }}" == true ]]
+            then
+                COMMIT_MSG="${COMMIT_MSG_FMT}format"
+                if [[ "${CLIPPY_FIXED}" == true ]]
+                then
+                    COMMIT_MSG="${COMMIT_MSG}, "
+                fi
+            fi
+
             if [[ "${CLIPPY_FIXED}" == true ]]
             then
-                COMMIT_MSG="${COMMIT_MSG}, fix lints"
+                COMMIT_MSG="${COMMIT_MSG}fix lints"
             fi
         else
             echo "using custom commit message"
@@ -46,6 +72,6 @@ runs:
         if [[ -n $(git status -s) ]]
         then
             git add .
-            git commit -m "${{ inputs.commit_message }}"
+            git commit -m "$COMMIT_MSG"
             git push
         fi
