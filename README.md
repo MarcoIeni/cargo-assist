@@ -100,7 +100,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          token: ${{ secrets.CARGO_FMT_BOT_TOKEN }} # <-- PAT secret name
+          token: ${{ secrets.CARGO_ASSIST_TOKEN }} # <-- PAT secret name
       - name: Install Rust toolchain
         uses: dtolnay/rust-toolchain@stable
       - name: Run Cargo fmt bot
