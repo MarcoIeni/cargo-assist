@@ -52,7 +52,7 @@ runs:
 
             if [[ "${{ inputs.fmt }}" == true ]]
             then
-                COMMIT_MSG="${COMMIT_MSG_FMT}format"
+                COMMIT_MSG="${COMMIT_MSG}format"
                 if [[ "${CLIPPY_FIXED}" == true ]]
                 then
                     COMMIT_MSG="${COMMIT_MSG}, "
