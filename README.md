@@ -106,7 +106,8 @@ jobs:
       - name: Run Cargo fmt bot
         uses: MarcoIeni/cargo-assist@v0.1
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # <-- to be the author of the commit, set the PAT secret name here, too
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # <-- to be the author of the commit,
+                                                    #     set the PAT secret name here, too
 ```
 
 ### Use a GitHub App
