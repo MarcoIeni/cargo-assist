@@ -1,8 +1,8 @@
 # cargo-assist
 
-Remember the old days when `cargo fmt --check` failed in CI and you had to run `cargo fmt && git commit -m "format" && git push` manually?
-Or when you forgot to remove an unused import, you remove it manually and then remember that `cargo clippy --fix` exists?
-Well, those days are over, because the *cargo-assist* GitHub action formats your code and fixes many clippy warnings for you!
+How many times do you have to run `cargo fmt` or `cargo clippy --fix` manually because of a failed CI check? 😵
+
+Well, you don't have to anymore! The *cargo-assist* GitHub action formats your code and fixes many clippy warnings for you!
 
 > [!NOTE]
 > The *cargo-assist* GitHub action runs `cargo fmt --all` and `cargo clippy --all-targets --all-features --workspace --fix` on every commit,
