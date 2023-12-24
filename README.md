@@ -1,13 +1,14 @@
-# cargo-fmt-bot
+# cargo-assist
 
 Remember the old days when `cargo fmt --check` failed in CI and you had to run `cargo fmt && git commit -m "format" && git push` manually?
-Well, those days are over, because the *cargo-fmt-bot* GitHub action does it for you!
+Or when you forgot to remove an unused import, you remove it manually and then remember that `cargo clippy --fix` exists?
+Well, those days are over, because the *cargo-assist* GitHub action formats your code and fixes many clippy warnings for you!
 
 ![PR screenshot](assets/screenshot.png)
 
 ## Usage
 
-Add the cargo-fmt-bot workflow file under the `.github/workflows` directory. For example `.github/workflows/cargo-fmt-bot.yml`:
+Add the *cargo-assist* workflow file under the `.github/workflows` directory. For example `.github/workflows/cargo-assist.yml`:
 
 ```yaml
 name: Cargo fmt bot
@@ -19,7 +20,7 @@ on:
   push:
 
 jobs:
-  cargo-fmt-bot:
+  cargo-assist:
     name: Cargo fmt bot
     runs-on: ubuntu-latest
     steps:
@@ -28,7 +29,7 @@ jobs:
       - name: Install Rust toolchain
         uses: dtolnay/rust-toolchain@stable
       - name: Run Cargo fmt bot
-        uses: MarcoIeni/cargo-fmt-bot@v0.1
+        uses: MarcoIeni/cargo-assist@v0.1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
@@ -40,7 +41,7 @@ action with a custom script. For example:
 
 ```yaml
 jobs:
-  cargo-fmt-bot:
+  cargo-assist:
     name: Cargo fmt bot
     runs-on: ubuntu-latest
     steps:
@@ -74,14 +75,14 @@ GitHub Actions using the default
 cannot trigger other workflow runs.
 
 Therefore, your `on: pull_request` or `on: push` workflows won't run on
-*cargo-fmt-bot* commits if you don't specify a token in the `actions/checkout` step.
+*cargo-assist* commits if you don't specify a token in the `actions/checkout` step.
 
 You can learn more in the GitHub
 [docs](https://docs.github.com/en/actions/using-workflows/triggering-a-workflow#triggering-a-workflow-from-a-workflow).
 
 ## How to trigger further workflow runs
 
-If you want to run CI checks on *cargo-fmt-bot* commits,
+If you want to run CI checks on *cargo-assist* commits,
 you need to use one of the following methods.
 
 ### Trigger workflow manually
@@ -96,7 +97,7 @@ This is the standard method
 [recommended by GitHub](https://docs.github.com/en/actions/using-workflows/triggering-a-workflow#triggering-a-workflow-from-a-workflow).
 
 Note that the account that owns the PAT will be the author of the commit.
-If you don't want *cargo-fmt-bot* to commit with your account,
+If you don't want *cargo-assist* to commit with your account,
 consider creating a
 [machine user](https://docs.github.com/en/get-started/learning-about-github/types-of-github-accounts#personal-accounts).
 
@@ -106,7 +107,7 @@ Create the PAT, choosing one of the two types:
   more secure because you can select the repositories where the PAT can be used.
   Follow [these](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-fine-grained-personal-access-token)
   instructions, giving the PAT the following permissions:
-  - Select the repositories where you want to use the PAT, to give *cargo-fmt-bot* write access:
+  - Select the repositories where you want to use the PAT, to give *cargo-assist* write access:
     ![pat repository access](assets/repository-access.png)
   - Under "Repository permissions", assign "Contents" read and write permissions:
     ![pat fine permissions](assets/pat-overview.png)
@@ -118,11 +119,11 @@ Create the PAT, choosing one of the two types:
 
 Once you generated your token, save it in the
 [secrets](https://docs.github.com/en/actions/security-guides/encrypted-secrets),
-and pass it to both the `actions/checkout` and *cargo-fmt-bot* steps:
+and pass it to both the `actions/checkout` and *cargo-assist* steps:
 
 ```yaml
 jobs:
-  cargo-fmt-bot:
+  cargo-assist:
     name: Cargo fmt bot
     runs-on: ubuntu-latest
     steps:
@@ -133,7 +134,7 @@ jobs:
       - name: Install Rust toolchain
         uses: dtolnay/rust-toolchain@stable
       - name: Run Cargo fmt bot
-        uses: MarcoIeni/cargo-fmt-bot@v0.1
+        uses: MarcoIeni/cargo-assist@v0.1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # <-- to be the author of the commit, set the PAT secret name here, too
 ```
@@ -155,7 +156,7 @@ Here's how to use a GitHub App to generate a GitHub token:
 
 2. Create a Private key from the App settings page and store it securely.
 
-3. Install the App on the repositories where you want to run *cargo-fmt-bot*.
+3. Install the App on the repositories where you want to run *cargo-assist*.
 
 4. Store the GitHub App ID, and the private
    key you created in step 2 in GitHub
@@ -169,7 +170,7 @@ Here's how to use a GitHub App to generate a GitHub token:
    ```yaml
    steps:
      # Generating a GitHub token, so that commits created by
-     # the cargo-fmt-bot can trigger actions workflows.
+     # the cargo-assist can trigger actions workflows.
      - name: Generate GitHub token
        uses: actions/create-github-app-token@v1
        id: generate-token
@@ -183,7 +184,7 @@ Here's how to use a GitHub App to generate a GitHub token:
      - name: Install Rust toolchain
        uses: dtolnay/rust-toolchain@stable
      - name: Run Cargo fmt bot
-       uses: MarcoIeni/cargo-fmt-bot@v0.1
+       uses: MarcoIeni/cargo-assist@v0.1
        env:
          GITHUB_TOKEN: ${{ steps.generate-token.outputs.token }}
    ```

@@ -1,4 +1,4 @@
-name: "cargo-fmt-bot"
+name: "cargo-assist"
 author: "Marco Ieni"
 description: "GitHub action to automatically format your Rust code"
 inputs:
