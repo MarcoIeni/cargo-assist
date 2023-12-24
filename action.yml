@@ -3,8 +3,8 @@ author: "Marco Ieni"
 description: "GitHub action to automatically format your Rust code"
 inputs:
   commit_message:
-    description: "Commit message to use when committing the changes. If not provided, the default 'chore: format' is used."
-    default: "chore: format"
+    description: "Commit message to use when committing the changes. If not provided, the default 'chore: format, fix lints' is used."
+    default: "chore: format, fix lints"
     required: false
 branding:
   icon: "zap"
@@ -18,7 +18,29 @@ runs:
       shell: bash
       run: |
         cargo clippy --all-targets --all-features --workspace --fix
+        # If repository has uncommitted changes, it means that clippy fixed some lints
+        if [[ -n $(git status -s) ]]
+        then
+            echo "fixed clippy lints"
+            CLIPPY_FIXED=true
+        else
+            CLIPPY_FIXED=false
+        fi
+
         cargo fmt --all
+
+        if [[ "${{ inputs.commit_message }}" == "chore: format, fix lints" ]]
+        then
+            echo "user didn't specify a custom commit message"
+            COMMIT_MSG="chore: format"
+            if [[ "${CLIPPY_FIXED}" == true ]]
+            then
+                COMMIT_MSG="${COMMIT_MSG}, fix lints"
+            fi
+        else
+            echo "using custom commit message"
+            COMMIT_MSG="${{ inputs.commit_message }}"
+        fi
 
         # If repository has uncommitted changes, commit them
         if [[ -n $(git status -s) ]]
