@@ -1,6 +1,6 @@
 # cargo-assist
 
-![logo](assets/logo.jpeg)
+![social card](assets/social-card.png)
 
 How many times do you have to run `cargo fmt` or `cargo clippy --fix` manually because of a failed CI check?
 
