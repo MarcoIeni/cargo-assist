@@ -11,8 +11,11 @@ inputs:
     default: true
     required: false
   commit_message:
-    description: "Commit message to use when committing the changes. If not provided, the default 'chore: format, fix lints' is used."
+    description: "Commit message to use when committing the changes. (Default: `chore: format, fix lints`)"
     default: "chore: format, fix lints"
+    required: false
+  clippy_flags:
+    description: "Flags to pass to `cargo clippy --fix`. (Default: `--all-targets --all-features --workspace`)."
     required: false
 branding:
   icon: "zap"
@@ -25,9 +28,16 @@ runs:
     - name: Run cargo-assist
       shell: bash
       run: |
+        if [[ -n "${{ inputs.clippy_flags }}" ]]
+        then
+            CLIPPY_FLAGS="${{ inputs.clippy_flags }}"
+        else
+            CLIPPY_FLAGS="--all-targets --all-features --workspace"
+        fi
+
         if [[ "${{ inputs.clippy }}" == true ]]
         then
-            cargo clippy --all-targets --all-features --workspace --fix
+            cargo clippy $CLIPPY_FLAGS --fix
         fi
 
         # If repository has uncommitted changes, it means that clippy fixed some lints
