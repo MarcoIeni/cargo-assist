@@ -47,9 +47,26 @@ TODO
 If you want to run other commands before running *cargo-assist*, you can do the following:
 
 ```yaml
+jobs:
+  cargo-assist:
+    name: Cargo assist
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+      - name: My custom step
+        run: cargo update
+      - name: Run Cargo assist
+        uses: MarcoIeni/cargo-assist@v0.1
+        with:
+          # Needed because after the custom step, the repository
+          # contains uncommited changes (Cargo.lock in this case).
+          clippy_allow_dirty: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
-
-The allow_dirty is needed because.
 
 ## Default GitHub token
 
