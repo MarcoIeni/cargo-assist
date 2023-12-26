@@ -46,9 +46,12 @@ runs:
             CLIPPY_ALLOW_DIRTY=""
         fi
 
+        CLIPPY_COMMAND="cargo clippy $CLIPPY_FLAGS $CLIPPY_ALLOW_DIRTY --fix"
+
         if [[ "${{ inputs.clippy }}" == true ]]
         then
-            cargo clippy $CLIPPY_FLAGS $CLIPPY_ALLOW_DIRTY --fix
+            echo "running `$CLIPPY_COMMAND`"
+            $CLIPPY_COMMAND
         fi
 
         # If repository has uncommitted changes, it means that clippy fixed some lints
