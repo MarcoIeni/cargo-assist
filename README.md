@@ -1,5 +1,3 @@
-# cargo-assist
-
 ![social card](assets/social-card.png)
 
 How many times do you have to run `cargo fmt` or `cargo clippy --fix` manually because of a failed CI check?
@@ -39,6 +37,19 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
+
+## Inputs
+
+TODO
+
+## Run other commands
+
+If you want to run other commands before running *cargo-assist*, you can do the following:
+
+```yaml
+```
+
+The allow_dirty is needed because.
 
 ## Default GitHub token
 
