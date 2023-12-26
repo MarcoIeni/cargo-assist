@@ -17,6 +17,10 @@ inputs:
   clippy_flags:
     description: "Flags to pass to `cargo clippy --fix`. (Default: `--all-targets --all-features --workspace`)."
     required: false
+  clippy_allow_dirty:
+    description: "Whether to add `--allow-dirty` to clippy or not. (Default: `false`)."
+    default: false
+    required: false
 branding:
   icon: "zap"
   color: "yellow"
@@ -35,9 +39,16 @@ runs:
             CLIPPY_FLAGS="--all-targets --all-features --workspace"
         fi
 
+        if [[ "${{ inputs.clippy_allow_dirty }}" == true ]]
+        then
+            CLIPPY_ALLOW_DIRTY="--allow-dirty"
+        else
+            CLIPPY_ALLOW_DIRTY=""
+        fi
+
         if [[ "${{ inputs.clippy }}" == true ]]
         then
-            cargo clippy $CLIPPY_FLAGS --fix
+            cargo clippy $CLIPPY_FLAGS $CLIPPY_ALLOW_DIRTY --fix
         fi
 
         # If repository has uncommitted changes, it means that clippy fixed some lints
