@@ -5,13 +5,14 @@ inputs:
   fmt:
     description: >
       Whether to run `cargo fmt` or not.
+      Useful if you want to run only `cargo clippy`.
       Possible values: `true`, `false`.
       Default: `true`.
     default: true
     required: false
   clippy:
     description: >
-      Whether to run `cargo clippy` or not.
+      Whether to run `cargo clippy --fix` or not.
       Possible values: `true`, `false`.
       Default: `true`.
     default: true
@@ -26,6 +27,7 @@ inputs:
     description: >
       Flags to pass to `cargo clippy --fix`.
       Default: `--all-targets --all-features --workspace`.
+    default: "--all-targets --all-features --workspace"
     required: false
   clippy_allow_dirty:
     description: >
@@ -62,13 +64,6 @@ runs:
             cd "${{ inputs.working_directory }}"
         fi
 
-        if [[ -n "${{ inputs.clippy_flags }}" ]]
-        then
-            CLIPPY_FLAGS="${{ inputs.clippy_flags }}"
-        else
-            CLIPPY_FLAGS="--all-targets --all-features --workspace"
-        fi
-
         if [[ "${{ inputs.clippy_allow_dirty }}" == true ]]
         then
             CLIPPY_ALLOW_DIRTY="--allow-dirty"
@@ -76,7 +71,7 @@ runs:
             CLIPPY_ALLOW_DIRTY=""
         fi
 
-        CLIPPY_COMMAND="cargo clippy $CLIPPY_FLAGS $CLIPPY_ALLOW_DIRTY --fix"
+        CLIPPY_COMMAND="cargo clippy ${{ inputs.clippy_flags }} $CLIPPY_ALLOW_DIRTY --fix"
 
         if [[ "${{ inputs.clippy }}" == true ]]
         then
