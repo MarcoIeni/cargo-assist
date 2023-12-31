@@ -16,7 +16,7 @@ Well, you don't have to anymore! The *cargo-assist* GitHub action formats your c
 Add the *cargo-assist* workflow file under the `.github/workflows` directory. For example `.github/workflows/cargo-assist.yml`:
 
 ```yaml
-name: Cargo assist
+name: Cargo Assist
 
 permissions:
   contents: write
@@ -26,14 +26,14 @@ on:
 
 jobs:
   cargo-assist:
-    name: Cargo assist
+    name: Cargo Assist
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
       - name: Install Rust toolchain
         uses: dtolnay/rust-toolchain@stable
-      - name: Run Cargo assist
+      - name: Run Cargo Assist
         uses: MarcoIeni/cargo-assist@v0.1
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
@@ -86,7 +86,7 @@ If you want to run other commands before running *cargo-assist*, you can do the 
 ```yaml
 jobs:
   cargo-assist:
-    name: Cargo assist
+    name: Cargo Assist
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -95,7 +95,7 @@ jobs:
         uses: dtolnay/rust-toolchain@stable
       - name: My custom step
         run: cargo update
-      - name: Run Cargo assist
+      - name: Run Cargo Assist
         uses: MarcoIeni/cargo-assist@v0.1
         with:
           # Needed because after the custom step, the repository
@@ -160,7 +160,7 @@ and pass it to both the `actions/checkout` and *cargo-assist* steps:
 ```yaml
 jobs:
   cargo-assist:
-    name: Cargo assist
+    name: Cargo Assist
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -169,7 +169,7 @@ jobs:
           token: ${{ secrets.CARGO_ASSIST_TOKEN }} # <-- PAT secret name
       - name: Install Rust toolchain
         uses: dtolnay/rust-toolchain@stable
-      - name: Run Cargo fmt bot
+      - name: Run Cargo Assist
         uses: MarcoIeni/cargo-assist@v0.1
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }} # <-- to be the author of the commit,
@@ -220,7 +220,7 @@ Here's how to use a GitHub App to generate a GitHub token:
          token: ${{ steps.generate-token.outputs.token }}
      - name: Install Rust toolchain
        uses: dtolnay/rust-toolchain@stable
-     - name: Run Cargo assist
+     - name: Run Cargo Assist
        uses: MarcoIeni/cargo-assist@v0.1
        with:
          github_token: ${{ steps.generate-token.outputs.token }}
