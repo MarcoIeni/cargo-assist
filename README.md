@@ -7,7 +7,7 @@ Well, you don't have to anymore! The *cargo-assist* GitHub action formats your c
 > [!NOTE]
 > The *cargo-assist* GitHub action:
 > 1. Runs `cargo fmt --all` and `cargo clippy --all-targets --all-features --workspace --fix` on every commit.
-> 2. Commits and pushes the changes to the branch.
+> 2. Commits and pushes the changes to the current branch.
 
 ![PR screenshot](assets/screenshot.png)
 
