@@ -5,8 +5,9 @@ How many times do you have to run `cargo fmt` or `cargo clippy --fix` manually b
 Well, you don't have to anymore! The *cargo-assist* GitHub action formats your code and fixes many clippy warnings automatically for you!
 
 > [!NOTE]
-> The *cargo-assist* GitHub action runs `cargo fmt --all` and `cargo clippy --all-targets --all-features --workspace --fix` on every commit,
-> and then commits and pushes the changes to the branch.
+> The *cargo-assist* GitHub action:
+> 1. Runs `cargo fmt --all` and `cargo clippy --all-targets --all-features --workspace --fix` on every commit.
+> 2. Commits and pushes the changes to the current branch.
 
 ![PR screenshot](assets/screenshot.png)
 
@@ -40,12 +41,42 @@ jobs:
 
 ## ➡️ Inputs
 
+In the following, you can find the list of all the inputs you can pass to the *cargo-assist* GitHub action.
+The specified values are the default ones.
+
 ```yaml
 - uses: MarcoIeni/cargo-assist@v0.1
   with:
     # GitHub token of the author of the commit.
     # If you provide '${{ secrets.GITHUB_TOKEN }}', the author of the commit is the github-actions bot.
     github_token: ''
+
+    # Whether to run `cargo fmt` or not.
+    # Useful if you want to run only `cargo clippy --fix`.
+    # Possible values: `true`, `false`.
+    fmt: true
+
+    # Whether to run `cargo clippy --fix` or not.
+    # Useful if you want to run only `cargo fmt`.
+    # Possible values: `true`, `false`.
+    # Default: `true`.
+    clippy: true
+
+    # Commit message to use when committing the changes.
+    commit_message: "chore: format, fix lints"
+
+    # Flags to pass to `cargo clippy --fix`.
+    clippy_flags: "--all-targets --all-features --workspace"
+
+    # Whether to add `--allow-dirty` to clippy or not.
+    # Useful if you want to run `cargo clippy --fix` on a dirty repository.
+    # If you run commands before cargo-assist, the repository might be dirty.
+    clippy_allow_dirty: false
+
+    # Directory where to run the commands.
+    # Defaults to repository's root.
+    # Useful if your rust project is in a subdirectory.
+    working_directory: ''
 ```
 
 ## 🏟️ Run other commands
