@@ -3,7 +3,7 @@ name: Test
 on:
   push:
     branches:
-      - 'main'
+      - "main"
     paths-ignore:
       - "**.md"
   pull_request:
@@ -18,8 +18,8 @@ jobs:
         uses: actions/checkout@v4
       - name: Create test project
         run: |
-          cargo new test
+          cargo new assist-test
       - name: Run cargo-assist
         uses: ./ # Uses an action in the root directory
         with:
-          working_directory: ./test
+          working_directory: ./assist-test
