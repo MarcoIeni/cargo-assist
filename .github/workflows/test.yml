@@ -23,6 +23,7 @@ jobs:
           # Generate `Cargo.lock` file and `target` directory
           cargo check
           git init
+          echo "target" > .gitignore
           git config --global user.email "test@example.com"
           git config --global user.name "Test"
           git add .
