@@ -200,7 +200,7 @@ Here's how to use a GitHub App to generate a GitHub token:
 
 Here you can find the public repositories using the cargo-assist GitHub action in CI:
 
-- [GitHub search](https://github.com/search?type=code&q=path%3A*.yml+OR+path%3A*.yaml+MarcoIeni%2Fcargo-assist)
+- [GitHub search](https://github.com/search?type=code&q=path%3A*.yml+OR+path%3A*.yaml+MarcoIeni%2Fcargo-assist%40)
 - [Dependency graph](https://github.com/MarcoIeni/cargo-assist/network/dependents)
 
 <br>
