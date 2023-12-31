@@ -43,6 +43,11 @@ inputs:
       Default: `${{ github.token }}`.
     default: ${{ github.token }}
     required: false
+  working_directory:
+    description: >
+      Directory where to run the commands.
+      Defaults to repository's root.
+    required: false
 branding:
   icon: "zap"
   color: "yellow"
@@ -56,6 +61,11 @@ runs:
     - name: Run cargo-assist
       shell: bash
       run: |
+        if [[ -n "${{ inputs.working_directory }}" ]]
+        then
+            cd "${{ inputs.working_directory }}"
+        fi
+
         if [[ -n "${{ inputs.clippy_flags }}" ]]
         then
             CLIPPY_FLAGS="${{ inputs.clippy_flags }}"

@@ -21,4 +21,5 @@ jobs:
           cargo new test
       - name: Run cargo-assist
         uses: ./ # Uses an action in the root directory
-        working-directory: ./test
+        with:
+          working_directory: ./test
