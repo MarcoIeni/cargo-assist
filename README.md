@@ -48,7 +48,8 @@ The specified values are the default ones.
 - uses: MarcoIeni/cargo-assist@v0.1
   with:
     # GitHub token of the author of the commit.
-    # If you provide '${{ secrets.GITHUB_TOKEN }}', the author of the commit is the github-actions bot.
+    # If you provide '${{ secrets.GITHUB_TOKEN }}',
+    # the author of the commit is the github-actions bot.
     github_token: ''
 
     # Whether to run `cargo fmt` or not.
