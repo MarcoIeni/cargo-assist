@@ -34,6 +34,8 @@ jobs:
         uses: dtolnay/rust-toolchain@stable
       - name: Run Cargo assist
         uses: MarcoIeni/cargo-assist@v0.1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
 ## ➡️ Inputs
@@ -42,11 +44,7 @@ jobs:
 - uses: MarcoIeni/cargo-assist@v0.1
   with:
     # GitHub token of the author of the commit.
-    # By default, the author of the commit is the github-actions bot.
-    # You can learn more about the default GitHub token here:
-    # https://docs.github.com/en/actions/security-guides/automatic-token-authentication#about-the-github_token-secret
-
-    # Default: ${{ github.token }}
+    # If you provide '${{ secrets.GITHUB_TOKEN }}', the author of the commit is the github-actions bot.
     github_token: ''
 ```
 
@@ -72,6 +70,7 @@ jobs:
           # Needed because after the custom step, the repository
           # contains uncommited changes (Cargo.lock in this case).
           clippy_allow_dirty: true
+          github_token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
 ## 🐙 Default GitHub token
@@ -141,9 +140,9 @@ jobs:
         uses: dtolnay/rust-toolchain@stable
       - name: Run Cargo fmt bot
         uses: MarcoIeni/cargo-assist@v0.1
-        # with:
-        #   github_token: ${{ secrets.CARGO_ASSIST_TOKEN }} # <-- PAT secret name
-        #   ^--- to be the author of the commit, set the PAT secret name here, too
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }} # <-- to be the author of the commit,
+                                                    #     set the PAT secret name here, too
 ```
 
 ### 3️⃣ Use a GitHub App

@@ -38,11 +38,7 @@ inputs:
     description: >
       GitHub token of the author of the commit.
       By default, the author of the commit is the github-actions bot.
-      You can learn more about the default GitHub token here:
-      https://docs.github.com/en/actions/security-guides/automatic-token-authentication#about-the-github_token-secret
-      Default: `${{ github.token }}`.
-    default: ${{ github.token }}
-    required: false
+    required: true
   working_directory:
     description: >
       Directory where to run the commands.
