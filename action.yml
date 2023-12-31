@@ -3,23 +3,45 @@ author: "Marco Ieni"
 description: "GitHub action to automatically format your Rust code"
 inputs:
   fmt:
-    description: "Whether to run `cargo fmt` or not. Possible values: `true`, `false`. (Default: `true`)."
+    description: >
+      Whether to run `cargo fmt` or not.
+      Possible values: `true`, `false`.
+      Default: `true`.
     default: true
     required: false
   clippy:
-    description: "Whether to run `cargo clippy` or not. Possible values: `true`, `false`. (Default: `true`)."
+    description: >
+      Whether to run `cargo clippy` or not.
+      Possible values: `true`, `false`.
+      Default: `true`.
     default: true
     required: false
   commit_message:
-    description: "Commit message to use when committing the changes. (Default: `chore: format, fix lints`)"
+    description: >
+      Commit message to use when committing the changes.
+      Default: `chore: format, fix lints`.
     default: "chore: format, fix lints"
     required: false
   clippy_flags:
-    description: "Flags to pass to `cargo clippy --fix`. (Default: `--all-targets --all-features --workspace`)."
+    description: >
+      Flags to pass to `cargo clippy --fix`.
+      Default: `--all-targets --all-features --workspace`.
     required: false
   clippy_allow_dirty:
-    description: "Whether to add `--allow-dirty` to clippy or not. (Default: `false`)."
+    description: >
+      Whether to add `--allow-dirty` to clippy or not.
+      Possible values: `true`, `false`.
+      Default: `false`.
     default: false
+    required: false
+  github_token:
+    description: >
+      GitHub token of the author of the commit.
+      By default, the author of the commit is the github-actions bot.
+      You can learn more about the default GitHub token here:
+      https://docs.github.com/en/actions/security-guides/automatic-token-authentication#about-the-github_token-secret
+      Default: `${{ github.token }}`.
+    default: ${{ github.token }}
     required: false
 branding:
   icon: "zap"
@@ -29,6 +51,8 @@ runs:
   steps:
     - name: Configure git user from GitHub token
       uses: MarcoIeni/git-config@v0.1
+      env:
+        GITHUB_TOKEN: ${{ inputs.github_token }}
     - name: Run cargo-assist
       shell: bash
       run: |

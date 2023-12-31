@@ -34,13 +34,21 @@ jobs:
         uses: dtolnay/rust-toolchain@stable
       - name: Run Cargo assist
         uses: MarcoIeni/cargo-assist@v0.1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 
 ## Inputs
 
-TODO
+```yaml
+- uses: MarcoIeni/cargo-assist@v0.1
+  with:
+    # GitHub token of the author of the commit.
+    # By default, the author of the commit is the github-actions bot.
+    # You can learn more about the default GitHub token here:
+    # https://docs.github.com/en/actions/security-guides/automatic-token-authentication#about-the-github_token-secret
+
+    # Default: ${{ github.token }}
+    github_token: ''
+```
 
 ## Run other commands
 
@@ -64,8 +72,6 @@ jobs:
           # Needed because after the custom step, the repository
           # contains uncommited changes (Cargo.lock in this case).
           clippy_allow_dirty: true
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 
 ## Default GitHub token
@@ -135,9 +141,9 @@ jobs:
         uses: dtolnay/rust-toolchain@stable
       - name: Run Cargo fmt bot
         uses: MarcoIeni/cargo-assist@v0.1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # <-- to be the author of the commit,
-                                                    #     set the PAT secret name here, too
+        # with:
+        #   github_token: ${{ secrets.CARGO_ASSIST_TOKEN }} # <-- PAT secret name
+        #   ^--- to be the author of the commit, set the PAT secret name here, too
 ```
 
 ### Use a GitHub App
@@ -186,8 +192,8 @@ Here's how to use a GitHub App to generate a GitHub token:
        uses: dtolnay/rust-toolchain@stable
      - name: Run Cargo assist
        uses: MarcoIeni/cargo-assist@v0.1
-       env:
-         GITHUB_TOKEN: ${{ steps.generate-token.outputs.token }}
+       with:
+         github_token: ${{ steps.generate-token.outputs.token }}
    ```
 
 ## 💖 Users
