@@ -10,7 +10,7 @@ Well, you don't have to anymore! The *cargo-assist* GitHub action formats your c
 
 ![PR screenshot](assets/screenshot.png)
 
-## Usage
+## ⚽ Usage
 
 Add the *cargo-assist* workflow file under the `.github/workflows` directory. For example `.github/workflows/cargo-assist.yml`:
 
@@ -36,7 +36,7 @@ jobs:
         uses: MarcoIeni/cargo-assist@v0.1
 ```
 
-## Inputs
+## ➡️ Inputs
 
 ```yaml
 - uses: MarcoIeni/cargo-assist@v0.1
@@ -50,7 +50,7 @@ jobs:
     github_token: ''
 ```
 
-## Run other commands
+## 🏟️ Run other commands
 
 If you want to run other commands before running *cargo-assist*, you can do the following:
 
@@ -74,7 +74,7 @@ jobs:
           clippy_allow_dirty: true
 ```
 
-## Default GitHub token
+## 🐙 Default GitHub token
 
 GitHub Actions using the default
 [`GITHUB_TOKEN`](https://docs.github.com/en/actions/security-guides/automatic-token-authentication)
@@ -86,16 +86,16 @@ Therefore, your `on: pull_request` or `on: push` workflows won't run on
 You can learn more in the GitHub
 [docs](https://docs.github.com/en/actions/using-workflows/triggering-a-workflow#triggering-a-workflow-from-a-workflow).
 
-## How to trigger further workflow runs
+## 👟 How to trigger further workflow runs
 
 If you want to run CI checks on *cargo-assist* commits,
 you need to use one of the following methods.
 
-### Trigger workflow manually
+### 1️⃣ Trigger workflow manually
 
 To run `on: pull_request` workflows you can manually close and reopen the release pull request.
 
-### Use a Personal Access Token
+### 2️⃣ Use a Personal Access Token
 
 Use a [Personal Access Token (PAT)](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token)
 created on an account with write access to the repository.
@@ -146,7 +146,7 @@ jobs:
         #   ^--- to be the author of the commit, set the PAT secret name here, too
 ```
 
-### Use a GitHub App
+### 3️⃣ Use a GitHub App
 
 Generate a GitHub token with a GitHub App.
 With this approach, the GitHub App will be the author of commits.
