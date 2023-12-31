@@ -1,0 +1,24 @@
+name: Test
+
+on:
+  push:
+    branches:
+      - 'main'
+    paths-ignore:
+      - "**.md"
+  pull_request:
+    paths-ignore:
+      - "**.md"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Create test project
+        run: |
+          cargo new test
+      - name: Run cargo-assist
+        uses: ./ # Uses an action in the root directory
+        working-directory: ./test
