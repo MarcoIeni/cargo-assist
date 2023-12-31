@@ -5,8 +5,9 @@ How many times do you have to run `cargo fmt` or `cargo clippy --fix` manually b
 Well, you don't have to anymore! The *cargo-assist* GitHub action formats your code and fixes many clippy warnings automatically for you!
 
 > [!NOTE]
-> The *cargo-assist* GitHub action runs `cargo fmt --all` and `cargo clippy --all-targets --all-features --workspace --fix` on every commit,
-> and then commits and pushes the changes to the branch.
+> The *cargo-assist* GitHub action:
+> 1. Runs `cargo fmt --all` and `cargo clippy --all-targets --all-features --workspace --fix` on every commit.
+> 2. Commits and pushes the changes to the branch.
 
 ![PR screenshot](assets/screenshot.png)
 
