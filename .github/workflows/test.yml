@@ -23,3 +23,4 @@ jobs:
         uses: ./ # Uses an action in the root directory
         with:
           working_directory: ./assist-test
+          github_token: ${{ secrets.GITHUB_TOKEN }}
