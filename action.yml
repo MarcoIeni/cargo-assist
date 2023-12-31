@@ -41,8 +41,7 @@ inputs:
       You can learn more about the default GitHub token here:
       https://docs.github.com/en/actions/security-guides/automatic-token-authentication#about-the-github_token-secret
       Default: `${{ github.token }}`.
-    default: ${{ secrets.GITHUB_TOKEN }}
-    required: false
+    required: true
   working_directory:
     description: >
       Directory where to run the commands.
