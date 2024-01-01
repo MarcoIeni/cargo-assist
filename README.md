@@ -149,7 +149,7 @@ Create the PAT, choosing one of the two types:
 
 Once you generated your token, save it in the
 [secrets](https://docs.github.com/en/actions/security-guides/encrypted-secrets),
-and pass it to both the `actions/checkout` and *cargo-assist* steps:
+and pass it to the `actions/checkout` step:
 
 ```yaml
 jobs:
