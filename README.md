@@ -182,7 +182,7 @@ Here's how to use a GitHub App to generate a GitHub token:
    - Set `Homepage URL` to anything you like, such as your GitHub profile page.
    - Uncheck `Active` under `Webhook`. You do not need to enter a `Webhook URL`.
    - Under `Repository permissions: Contents` select `Access: Read & write`.
-   - (Optional) Under `Where can this GitHub App be installed?` select `Only on this account`
+   - (Optional) Under `Where can this GitHub App be installed?` select `Only on this account`.
 
 2. Create a Private key from the App settings page and store it securely.
 
