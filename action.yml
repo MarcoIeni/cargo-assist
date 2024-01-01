@@ -76,10 +76,9 @@ runs:
             CLIPPY_ALLOW_DIRTY=""
         fi
 
-        CLIPPY_COMMAND="cargo clippy ${{ inputs.clippy_flags }} $CLIPPY_ALLOW_DIRTY --fix"
-
         if [[ "${{ inputs.clippy }}" == true ]]
         then
+            CLIPPY_COMMAND="cargo clippy ${{ inputs.clippy_flags }} $CLIPPY_ALLOW_DIRTY --fix"
             echo "running `$CLIPPY_COMMAND`"
             $CLIPPY_COMMAND
         fi
