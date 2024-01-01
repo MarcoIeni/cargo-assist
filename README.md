@@ -50,12 +50,12 @@ The specified values are the default ones.
     # Whether to run `cargo clippy --fix` or not.
     # Useful if you want to run only `cargo fmt`.
     # Possible values: `true`, `false`.
-    # Default: `true`.
     clippy: true
 
     # Whether to add `--allow-dirty` to clippy or not.
     # Useful if you want to run `cargo clippy --fix` on a dirty repository.
     # If you run commands before cargo-assist, the repository might be dirty.
+    # Possible values: `true`, `false`.
     clippy_allow_dirty: false
 
     # Flags to pass to `cargo clippy --fix`.
@@ -77,7 +77,7 @@ The specified values are the default ones.
     # Directory where to run the commands.
     # Defaults to repository's root.
     # Useful if your rust project is in a subdirectory.
-    working_directory: ''
+    working_directory: '.'
 ```
 
 ## 🏟️ Run other commands
