@@ -173,7 +173,6 @@ jobs:
 ### 3️⃣ Use a GitHub App
 
 Generate a GitHub token with a GitHub App.
-With this approach, the GitHub App will be the author of commits.
 
 Here's how to use a GitHub App to generate a GitHub token:
 
@@ -217,7 +216,8 @@ Here's how to use a GitHub App to generate a GitHub token:
      - name: Run Cargo Assist
        uses: MarcoIeni/cargo-assist@v0.1
        with:
-         github_token: ${{ steps.generate-token.outputs.token }}
+          github_token: ${{ secrets.GITHUB_TOKEN }} # <-- if you want the GitHub app to be the author of the commit,
+                                                    #     set `steps.generate-token.outputs.token` here, too.
    ```
 
 ## 💖 Users
