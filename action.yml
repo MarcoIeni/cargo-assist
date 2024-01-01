@@ -14,6 +14,7 @@ inputs:
     description: >
       Whether to add `--allow-dirty` to clippy or not.
       Useful if you want to run `cargo clippy --fix` on a dirty repository.
+      If you run commands before cargo-assist, the repository might be dirty.
       Possible values: `true`, `false`.
       Default: `false`.
     default: false
