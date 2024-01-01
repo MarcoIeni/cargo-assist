@@ -42,7 +42,7 @@ inputs:
   github_token:
     description: >
       GitHub token of the author of the commit.
-      If you provide '${{ secrets.GITHUB_TOKEN }}',
+      If you provide `${{ secrets.GITHUB_TOKEN }}`,
       the author of the commit is the github-actions bot.
     required: true
   working_directory:
