@@ -122,7 +122,7 @@ you can use one of the following methods.
 
 ### 1️⃣ Trigger workflow manually
 
-To run `on: pull_request` workflows you can manually close and reopen the release pull request.
+To run `on: pull_request` workflows you can manually close and reopen the pull request.
 
 ### 2️⃣ Use a Personal Access Token
 
