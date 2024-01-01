@@ -166,8 +166,8 @@ jobs:
       - name: Run Cargo Assist
         uses: MarcoIeni/cargo-assist@v0.1
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }} # <-- to be the author of the commit,
-                                                    #     set the PAT secret name here, too
+          github_token: ${{ secrets.GITHUB_TOKEN }} # <-- To be the author of the commit,
+                                                    #     set the PAT secret name here, too.
 ```
 
 ### 3️⃣ Use a GitHub App
@@ -216,7 +216,7 @@ Here's how to use a GitHub App to generate a GitHub token:
      - name: Run Cargo Assist
        uses: MarcoIeni/cargo-assist@v0.1
        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }} # <-- if you want the GitHub app to be the author of the commit,
+          github_token: ${{ secrets.GITHUB_TOKEN }} # <-- If you want the GitHub app to be the author of the commit,
                                                     #     set `steps.generate-token.outputs.token` here, too.
    ```
 
