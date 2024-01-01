@@ -1,6 +1,6 @@
 ![social card](assets/social-card.png)
 
-How many times do you have to run `cargo fmt` or `cargo clippy --fix` manually because of a failed CI check? 😵
+How often do you manually run `cargo fmt` or `cargo clippy --fix` because of a failed CI check?
 
 Well, you don't have to anymore! The *cargo-assist* GitHub action formats your code and fixes many clippy warnings automatically for you! 🥳
 
