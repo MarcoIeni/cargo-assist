@@ -160,7 +160,9 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          token: ${{ secrets.CARGO_ASSIST_TOKEN }} # <-- PAT secret name
+          # Use CARGO_ASSIST_TOKEN if available, by specifying the PAT secret name.
+          # In forks it's not available, so use the default GITHUB_TOKEN.
+          token: ${{ secrets.CARGO_ASSIST_TOKEN || secrets.GITHUB_TOKEN}}
       - name: Install Rust toolchain
         uses: dtolnay/rust-toolchain@stable
       - name: Run Cargo Assist
