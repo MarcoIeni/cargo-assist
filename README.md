@@ -105,7 +105,7 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
-## 🐙 Default GitHub token
+## 👟 How to trigger further workflow runs
 
 GitHub Actions using the default
 [`GITHUB_TOKEN`](https://docs.github.com/en/actions/security-guides/automatic-token-authentication)
@@ -117,10 +117,8 @@ Therefore, your `on: pull_request` or `on: push` workflows won't run on
 You can learn more in the GitHub
 [docs](https://docs.github.com/en/actions/using-workflows/triggering-a-workflow#triggering-a-workflow-from-a-workflow).
 
-## 👟 How to trigger further workflow runs
-
 If you want to run CI checks on *cargo-assist* commits,
-you need to use one of the following methods.
+you can use one of the following methods.
 
 ### 1️⃣ Trigger workflow manually
 
